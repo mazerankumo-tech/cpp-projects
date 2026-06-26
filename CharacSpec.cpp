@@ -2,18 +2,20 @@
 
 int main(){
 	
-	char charac;
-	std::cout << "Enter a character: ";
-	std::cin >> charac;
+	char input;
+	std::cout << "Enter any key from your keyboard: ";
+	std::cin >>  input;
 	
-	if(int(charac) >= 48 && int(charac) <= 57){
-		std::cout << "ASCII range: Numeric. Value: " << int(charac);
-	} else if (int(charac) >= 65 && int(charac) <= 90){
-		std::cout << "ASCII range: Uppercase. Value: " << int(charac);
-	} else if (int(charac) >= 97 && int(charac) <= 122){
-		std::cout << "ASCII range: Lowercase. Value: " << int(charac);
+	int ASCII_r = (int)input;
+	
+	if(ASCII_r >= 48 && ASCII_r <= 57){
+		std::cout << "Under numeric characters: " << ASCII_r; 
+	} else if(ASCII_r >= 65 && ASCII_r <= 90){
+		std::cout << "Under uppercases characters: " << ASCII_r;
+	} else if(ASCII_r >= 97 && ASCII_r <= 122){
+		std::cout << "Under lowercases characters: " << ASCII_r;
 	} else {
-		std::cout << "ASCII range: Symbol or Special Character. Value: " << int(charac);
+		std::cout << "Under Special\Punctuation characters: " << ASCII_r;
 	}
 	
 }
