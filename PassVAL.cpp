@@ -16,8 +16,8 @@ int main(){
 	
 	bool isSpecial = false;
 	
-	
-	for(int i = 0; i < password.length(); i++){
+	int pass_len = password.length();
+	for(int i = 0; i < pass_len; i++){
 		bool hasDigit = (password[i] >= 48 && password[i] <= 57);
 		bool hasUpper = (password[i] >= 65 && password[i] <= 90);
 		bool hasLower = (password[i] >= 97 && password[i] <= 122);
