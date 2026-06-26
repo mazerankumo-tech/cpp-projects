@@ -24,7 +24,7 @@ int main(){
 	
 	for(int rows = 1; rows <= y_axis; rows++){
 		for(int column = 1; column <= x_axis; column++){
-			if(rows == 1 || rows == 8 || column == 1 || column == 8){
+			if(rows == 1 || rows == y_axis || column == 1 || column == x_axis){
 				if(rows == 8 && column == 7){
 					std::cout << 'E';
 				} else {
