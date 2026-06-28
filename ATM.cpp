@@ -1,109 +1,103 @@
 #include <iostream>
-#include <string>
 
-bool AccVeri(std::string name, std::string password);
-bool PinVeri(int pin);
-static double CurrentBalance = 0;
-void Vault();
-double Deposit(double amount);
-int Withdraw(int amount);
+void Vault(const double& currentBalance);
+void Deposit(double& currentBalance, double amount);
+void Withdraw(double& currentBalance, double amount);
+bool AccVAL(std::string name, std::string password);
+bool PinVAL(int pin);
 
-int main()
-{
-    std::string name, pass;
-    int pin, amount;
-    char option;
-
-    while(true)
-    {
-       std::cout << "_____ATM-MACHINE_____\n";
-       std::cout << "Name: ";
-       std::getline(std::cin, name);
-       
-       std::cout << "Enter password: ";
-       std::getline(std::cin, pass);
-
-       if(!AccVeri(name, pass))
-       {
-         std::cout << "Incorrect input or Account does not exist. Try again.\n";
-       } else {
-           std::cout << "Welcome, " << name << "!\n";
-           break;
-        }
+int main(){
+	static double currentBalance = 0;
+	std::string name, password;
+	int pin;
+	char option;
+	double amount;
+	
+	bool stop = false;
+	while(!stop){
+	  std::cout << "ATM MACHINE\n";
+	  std::cout << "Enter your name: ";
+	  std::getline(std::cin, name);
+	  std::cout << "Enter password: ";
+	  std::cin >> password;
+	  
+	  if(AccVAL(name, password)){
+	  	std::cout << "Hello, " << name << std::endl;
+	  	stop = true;
+	  } else {
+	  	std::cout << "Incorrect Input. Try Again.\n";
+	  	std::cin.ignore();
+	  }
     }
-
-    bool stop = false;
-    while (!stop) 
-    {
-        std::cout << "1. Vault\n2. Deposit\n3. Withdraw\n4.Quit\nOption: ";
-        std::cin >> option;
-       switch(option)
-       {
-           case '1':
-             Vault();
-             break;
-           case '2':
-             std::cout << "Enter amount: ";
-             std::cin >> amount;
-             Deposit(amount);
-             std::cout << "Current Balance: $" << CurrentBalance << std::endl;
-             break;
-           case '3':
-             std::cout << "Enter amount: ";
-             std::cin >> amount;
-             Withdraw(amount);
-             std::cout << "Current Balance: $" << CurrentBalance << std::endl;
-             break;
-           case '4':
-             std::cout << "Finished.\n";
-             stop = true;
-             break;
-           default:
-             std::cout << "Invalid Option... Try Again.\n";  
-        }
-    }
-    std::cout << "Good Bye";
-
-    return 0;
+    
+    stop = false;
+    while(!stop){
+    	std::cout << "Enter your 6-DIGIT PIN: ";
+    	std::cin >> pin;
+    	if(PinVAL(pin)){
+    		std::cout << "Welcome, " << name << "!\n";
+    		stop = true;
+		} else {
+			std::cout << "Incorrect PIN. Try Again.\n";
+		}
+	}
+	
+	do{
+		std::cout << "1. Vault\n2. Deposit\n3. Withdraw\n4. Quit\n Option: ";
+		std::cin >> option;
+		
+		switch(option){
+			case '1':
+				Vault(currentBalance);
+				break;
+			case '2':
+				std::cout << "Enter amount: ";
+				std::cin >> amount;
+				Deposit(currentBalance, amount);
+				std::cout << "Current Balance:  $" << currentBalance << '\n';
+				break;
+			case '3':
+				std::cout << "Enter amount: ";
+				std::cin >> amount;
+				Withdraw(currentBalance, amount);
+				std::cout << "Current Balance:  $" << currentBalance << '\n';
+				break;
+			case '4':
+				std::cout << "Finished.\n";
+				break;
+			default:
+				std::cout << "Invalid input.\n";
+		}
+	}while(option != '4');
+	
+	std::cout << "Finished.2";
 }
 
-void Vault()
-{
-    std::cout << "Current Balance: $" << CurrentBalance << std::endl;
-    return;
+
+
+
+
+void Vault(const double& currentBalance){
+	std::cout << "Current Balance: $" << currentBalance << '\n';
 }
-double Deposit(double amount)
-{
-    if (amount < 0)
-    {
-        std::cout << "Amount cannot hold negative value.";
-        return amount;
-    }
-
-    return CurrentBalance += amount;
+void Deposit(double& currentBalance, double amount){
+	if(amount < 0){
+		std::cout << "Insufficient Amount.\n";
+		return;
+	}
+	currentBalance += amount;
 }
-int Withdraw(int amount)
-{
-    if (amount > CurrentBalance)
-    {
-        std::cout << "Current Balance is insufficent. Check Vault.";
-    }
-
-    if (amount % 100 != 0)
-    {
-        std::cout << "Value Cannot be processed.";
-        return amount;
-    }
-
-    return CurrentBalance -= amount;
+void Withdraw(double& currentBalance, double amount){
+	if(amount < 0 || amount > currentBalance){
+		std::cout << "Amount Error!\n";
+		return;
+	}
+	currentBalance -= amount;
+}
+bool AccVAL(std::string name, std::string password){
+	return name == "Adrian" && password == "123qwertyuiop";
 }
 
-bool AccVeri(std::string name, std::string password)
-{
-    return name == "Adrian Roi Bellen" && password == "123qwertyuiop";
-}
-
-bool PinVeri(int pin)
-{
-    return pin == 654321;
+bool PinVAL(int pin){
+	return pin == 654321;
 }
